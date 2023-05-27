@@ -7,6 +7,7 @@ local cmd_check, cmd_paste = utils.get_clip_command()
 local paste_img_to = function(path)
   print("cmd_paste: " .. cmd_paste)
   print("path: " .. path)
+  print("format: " .. string.format(cmd_paste, path))
   os.execute(string.format(cmd_paste, path))
 end
 
