@@ -35,8 +35,8 @@ M.paste_img = function(opts)
 	-- delete .md of filename
 	local file_name_short = string.sub(file_name, 0, string.len(file_name) - 3)
     
-    -- utils.create_dir(".assets/" .. file_name_short)
     utils.create_dir(".assets/" .. file_name_short)
+    -- utils.create_dir(".assets/" .. file_name_short)
     paste_img_to(path)
 
     utils.insert_txt(conf.affix, path_txt)

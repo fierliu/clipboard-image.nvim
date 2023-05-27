@@ -2,9 +2,10 @@ local M = {}
 
 M.config = {
   default = {
-    img_dir = "img",
-    -- img_dir_txt = ".assets",
-    img_dir_txt = "img",
+    img_dir = ".assets",
+    -- img_dir = "img",
+    img_dir_txt = ".assets",
+    -- img_dir_txt = "img",
     img_name = function()
       return os.date "%Y-%m-%d-%H-%M-%S"
     end,
