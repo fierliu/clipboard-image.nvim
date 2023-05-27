@@ -5,6 +5,8 @@ local check_dependency = require("clipboard-image.health").check_current_dep
 local cmd_check, cmd_paste = utils.get_clip_command()
 
 local paste_img_to = function(path)
+  print("cmd_paste: " .. cmd_paste)
+  print("path: " .. path)
   os.execute(string.format(cmd_paste, path))
 end
 
@@ -27,7 +29,12 @@ M.paste_img = function(opts)
     print("aster: " .. path)
     local path_txt = utils.get_img_path(conf.img_dir_txt, conf.img_name, "txt")
 
-    utils.create_dir(conf.img_dir)
+      	-- get markdown filename
+	local file_name = vim.fn.expand("%")
+	-- delete .md of filename
+	local file_name_short = string.sub(file_name, 0, string.len(file_name) - 3)
+    
+    utils.create_dir(".assets/" .. file_name_short)
     paste_img_to(path)
 
     utils.insert_txt(conf.affix, path_txt)
