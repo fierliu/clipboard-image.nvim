@@ -24,6 +24,7 @@ M.paste_img = function(opts)
 
     local conf = conf_utils.load_config(conf_toload)
     local path = utils.get_img_path(conf.img_dir, conf.img_name)
+    print("aster: " .. path)
     local path_txt = utils.get_img_path(conf.img_dir_txt, conf.img_name, "txt")
 
     utils.create_dir(conf.img_dir)
