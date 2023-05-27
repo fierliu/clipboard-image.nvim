@@ -111,10 +111,11 @@ M.get_img_path = function(dir, img_name, is_txt)
   if dir == "" or dir == nil then
 		print("utils: dir is nil ") 
     -- ./.assets/markdonwfile_name/img_name.png
-    return ".assets/" .. file_name_short .. "/"
+    -- return ".assets/" .. file_name_short .. "/"
+    return dir
   end
   
-  dir = dir .. "/" .. file_name_short		
+  -- dir = dir .. "/" .. file_name_short		
   if this_os == "Windows" and is_txt ~= "txt" then
     dir = M.resolve_dir(dir, "\\")
   else
