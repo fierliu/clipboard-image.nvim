@@ -109,6 +109,7 @@ M.get_img_path = function(dir, img_name, is_txt)
   
   ---On cwd
   if dir == "" or dir == nil then
+		print("utils: dir is nil ") 
     -- ./.assets/markdonwfile_name/img_name.png
     return ".assets/" .. file_name_short
   end
