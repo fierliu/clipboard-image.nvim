@@ -102,9 +102,15 @@ M.get_img_path = function(dir, img_name, is_txt)
   local this_os = M.get_os()
   local img = img_name .. ".png"
 
+  	-- get markdown filename
+	local file_name = vim.fn.expand("%")
+	-- delete .md of filename
+	local file_name_short = string.sub(file_name, 0, string.len(file_name) - 3)
+  
   ---On cwd
   if dir == "" or dir == nil then
-    return img
+    -- ./.assets/markdonwfile_name/img_name.png
+    return ".assets/" .. file_name_short
   end
 
   if this_os == "Windows" and is_txt ~= "txt" then
