@@ -103,7 +103,15 @@ M.get_img_path = function(dir, img_name, is_txt)
   local img = img_name .. ".png"
 
   	-- get markdown filename
-	local file_name = vim.fn.expand("%")
+    local file_name = ""
+  if this_os == "Windows" then
+	  file_name = vim.fn.expand("%") -- windwows下获取到的是md文件从根目录的完整路径加文件名
+	  file_name = vim.fn.expand("%:t") -- 只获取md文件名
+  else
+	  file_name = vim.fn.expand("%") -- linux获取的是只有文件名
+  end
+  
+	print("filename 115: " .. file_name)
 	-- delete .md of filename
 	local file_name_short = string.sub(file_name, 0, string.len(file_name) - 3)
   
@@ -115,7 +123,13 @@ M.get_img_path = function(dir, img_name, is_txt)
     return dir
   end
   
-  dir = dir .. "/" .. file_name_short		
+  -- 拼上md文件名
+  if this_os == "Windows" then
+    dir = dir .. "\\" .. file_name_short
+  else
+    dir = dir .. "/" .. file_name_short		
+  end
+
   if this_os == "Windows" and is_txt ~= "txt" then
     dir = M.resolve_dir(dir, "\\")
   else

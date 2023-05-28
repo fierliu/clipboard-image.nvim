@@ -7,7 +7,7 @@ M.config = {
     img_dir_txt = ".assets",
     -- img_dir_txt = "img",
     img_name = function()
-      return os.date "%Y-%m-%d-%H-%M-%S"
+      return os.date "%Y%m%d%H%M%S"
     end,
     img_handler = function(img) end,
     affix = "%s",

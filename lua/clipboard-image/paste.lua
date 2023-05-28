@@ -4,6 +4,21 @@ local utils = require "clipboard-image.utils"
 local check_dependency = require("clipboard-image.health").check_current_dep
 local cmd_check, cmd_paste = utils.get_clip_command()
 
+---Reference https://vi.stackexchange.com/a/2577/33116
+---@return string os_name
+M.get_os = function()
+  if vim.fn.has "win32" == 1 then
+    return "Windows"
+  end
+
+  local this_os =  tostring(io.popen("uname"):read())
+  if this_os == "Linux" and
+      vim.fn.readfile("/proc/version")[1]:lower():match "microsoft" then
+    this_os = "Wsl"
+  end
+  return this_os
+end
+
 local paste_img_to = function(path)
   print("cmd_paste: " .. cmd_paste)
   print("path: " .. path)
@@ -27,13 +42,21 @@ M.paste_img = function(opts)
 
     local conf = conf_utils.load_config(conf_toload)
     local path = utils.get_img_path(conf.img_dir, conf.img_name)
-    print("aster: " .. path)
+    print("paster path: " .. path)
     local path_txt = utils.get_img_path(conf.img_dir_txt, conf.img_name, "txt")
 
-      	-- get markdown filename
-	local file_name = vim.fn.expand("%")
-	-- delete .md of filename
-	local file_name_short = string.sub(file_name, 0, string.len(file_name) - 3)
+    -- get markdown filename
+    local file_name = ""
+    local this_os = M.get_os()
+    if this_os == "Windows" then
+      file_name = vim.fn.expand("%") -- windwows下获取到的是md文件从根目录的完整路径加文件名
+      file_name = vim.fn.expand("%:t") -- 只获取md文件名
+    else
+      file_name = vim.fn.expand("%") -- linux获取的是只有文件名
+    end
+    
+	  -- delete .md of filename
+	  local file_name_short = string.sub(file_name, 0, string.len(file_name) - 3)
     
     utils.create_dir(".assets/" .. file_name_short)
     -- utils.create_dir(".assets/" .. file_name_short)
