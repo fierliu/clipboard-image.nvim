@@ -41,7 +41,7 @@ M.paste_img = function(opts)
     conf_toload = conf_utils.merge_config(conf_toload, opts)
 
     local conf = conf_utils.load_config(conf_toload)
-    local path = utils.get_img_path(conf.img_dir, conf.img_name)
+    local path = utils.get_img_paste_path(conf.img_dir, conf.img_name) -- 此路径是最终粘贴用的，需要带上文件名
     print("paster path: " .. path)
     local path_txt = utils.get_img_path(conf.img_dir_txt, conf.img_name, "txt")
 
@@ -58,7 +58,9 @@ M.paste_img = function(opts)
 	  -- delete .md of filename
 	  local file_name_short = string.sub(file_name, 0, string.len(file_name) - 3)
     
-    utils.create_dir(".assets/" .. file_name_short)
+    local dir_path = utils.get_img_paste_path(conf.img_dir, conf.img_name, "Y") 
+
+    utils.create_dir(dir_path) --这里不要包含文件名
     -- utils.create_dir(".assets/" .. file_name_short)
     paste_img_to(path)
 

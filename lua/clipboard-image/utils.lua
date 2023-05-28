@@ -124,20 +124,49 @@ M.get_img_path = function(dir, img_name, is_txt)
   end
   
   -- 拼上md文件名
+  dir = ".assets/" .. file_name_short	.. "/"
+
+  -- if this_os == "Windows" and is_txt ~= "txt" then
+  --   dir = M.resolve_dir(dir, "\\")
+  -- else
+  --   dir = M.resolve_dir(dir)
+  -- end
+  return dir .. img
+end
+
+M.get_img_paste_path = function(dir, img_name, no_file_name)
+  local this_os = M.get_os()
+  local img = img_name .. ".png"
+
+  	-- get markdown filename
+    local file_name = ""
+    local md_file_path = ""
   if this_os == "Windows" then
-    dir = dir .. "\\" .. file_name_short
+	  file_name = vim.fn.expand("%") 
+    md_file_path = vim.fn.expand('%:p:h')
+-- windwows下获取到的是md文件从根目录的完整路径加文件名 d:\test\markdownfile.md -> d:\test\.assets\markdownfile\aa.png
+	  file_name = vim.fn.expand("%:t") -- 只获取md文件名
+  else
+	  file_name = vim.fn.expand("%") -- linux获取的是只有文件名
+  end
+  
+	print("filename 115: " .. file_name)
+	-- delete .md of filename
+	local file_name_short = string.sub(file_name, 0, string.len(file_name) - 3)
+  
+  -- 拼上md文件名
+  if this_os == "Windows" then
+    dir = md_file_path .. "\\.assets\\" .. file_name_short .. "\\"
   else
     dir = dir .. "/" .. file_name_short		
   end
 
-  if this_os == "Windows" and is_txt ~= "txt" then
-    dir = M.resolve_dir(dir, "\\")
+  if no_file_name == 'Y' then
+    return dir
   else
-    dir = M.resolve_dir(dir)
+    return dir .. img
   end
-  return dir .. img
 end
-
 ---Insert image's path with affix
 ---TODO: Probably need better description
 M.insert_txt = function(affix, path_txt)
