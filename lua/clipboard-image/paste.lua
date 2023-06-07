@@ -20,9 +20,9 @@ M.get_os = function()
 end
 
 local paste_img_to = function(path)
-  print("cmd_paste: " .. cmd_paste)
-  print("path: " .. path)
-  print("format: " .. string.format(cmd_paste, path))
+  -- print("cmd_paste: " .. cmd_paste)
+  -- print("path: " .. path)
+  -- print("format: " .. string.format(cmd_paste, path))
   os.execute(string.format(cmd_paste, path))
 end
 
@@ -42,7 +42,7 @@ M.paste_img = function(opts)
 
     local conf = conf_utils.load_config(conf_toload)
     local path = utils.get_img_paste_path(conf.img_dir, conf.img_name) -- 此路径是最终粘贴用的，需要带上文件名
-    print("paster path: " .. path)
+    -- print("paster path: " .. path)
     local path_txt = utils.get_img_path(conf.img_dir_txt, conf.img_name, "txt")
 
     -- get markdown filename
