@@ -30,65 +30,10 @@
 ### Usage
 This is the basic usage. If you want to see more you can read [API](/API.md)
 
-|Command|Demo|
-|---|---|
-|`PasteImg`|<kbd>![](https://link.ekickx.vercel.app/clipboard-image.nvim/demo_pasteimg)</kbd>|
+Copy image, then type `PasteImg` in command mode.
 
 ### Config
-This plugin is **zero config**, means you don't need to configure anything to works. But if you want to, you can configure it like this:
-
-<details>
-  <summary><strong>Example</strong></summary></br>
-
-```lua
-require'clipboard-image'.setup {
-  -- Default configuration for all filetype
-  default = {
-    img_dir = "images",
-    img_name = function() return os.date('%Y-%m-%d-%H-%M-%S') end, -- Example result: "2021-04-13-10-04-18"
-    affix = "<\n  %s\n>" -- Multi lines affix
-  },
-  -- You can create configuration for ceartain filetype by creating another field (markdown, in this case)
-  -- If you're uncertain what to name your field to, you can run `lua print(vim.bo.filetype)`
-  -- Missing options from `markdown` field will be replaced by options from `default` field
-  markdown = {
-    img_dir = {"src", "assets", "img"}, -- Use table for nested dir (New feature form PR #20)
-    img_dir_txt = "/assets/img",
-    img_handler = function(img) -- New feature from PR #22
-      local script = string.format('./image_compressor.sh "%s"', img.path)
-      os.execute(script)
-    end,
-  }
-}
-```
-  
-</details>
-  
-<details open>
-  <summary><strong>Structure</strong></summary></br>
-  
-  See also [API](/API.md#config-structure)
-  
-```lua
-{
-  default = {
-    <options>
-  },
-  <filetype> = {
-    <options>
-  },
-}
-```
-
-|Options|Default|Description|
-|---|---|---|
-|`img_dir`|`"img"`|Directory where the image from clipboard will be copied to|
-|`img_dir_txt`|`"img"`|Directory that will be inserted to buffer.<br> Example: Your actual dir is `src/assets/img` but your dir on **text** or buffer is `/assets/img`|
-|`img_name`|`function() return os.date('%Y-%m-%d-%H-%M-%S') end`|Image's name|
-|`img_handler`|`function(img)  end`|Function that will handle image after pasted.<br>`img` is a table that contain pasted image's `name` and `path`|
-|`affix`|`default`: `"%s"`</br>`markdown`: `"![](%s)"`</br>`asciidoc`: `"image::%s[]"`|String that sandwiched the image's path|
-
-</details>
+This plugin is **zero config**, means you don't need to configure anything to works. The image will be saved at .asessts/${markdownFileName}/
 
 ## Tips
 Share your tips [here](https://github.com/ekickx/clipboard-image.nvim/discussions/15)
