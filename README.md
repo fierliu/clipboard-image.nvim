@@ -33,7 +33,7 @@ This is the basic usage. If you want to see more you can read [API](/API.md)
 Copy image, then type `PasteImg` in command mode.
 
 ### Config
-This plugin is **zero config**, means you don't need to configure anything to works. The image will be saved at .asessts/${markdownFileName}/
+This plugin is **zero config**, means you don't need to configure anything to works. The image will be saved at `.asessts/${markdownFileName}/`
 
 ## Tips
 Share your tips [here](https://github.com/ekickx/clipboard-image.nvim/discussions/15)
